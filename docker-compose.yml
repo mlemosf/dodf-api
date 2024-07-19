@@ -5,6 +5,6 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - ./diarios:/var/www/diarios
-      - ./db:/var/www/db
+      - ./diarios:/var/www/api/diarios
+      - ./db:/var/www/api/db
     restart: always
