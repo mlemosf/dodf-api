@@ -15,7 +15,7 @@ def read_root():
     return resposta
 
 @app.get('/api/v1/cargos/{ano}/{mes}/{dia}')
-def get_cargos(ano : int, mes : int, dia: int):
+def get_cargos(ano : str, mes : str, dia: str):
     try:
         # Abre o arquivo do ano e mês correspondente
         conteudo = {}

@@ -79,7 +79,6 @@ def parse_data(data):
             
 def main(*args, **kwargs):
     filename = kwargs.get('filename')
-    print('a')
     data = read_file(filename)
     parsed = parse_data(data)
     parsed_json = json.dumps(parsed)
