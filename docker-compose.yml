@@ -1,0 +1,9 @@
+services:
+  api:
+    image: mlemosf/dodf-api:latest
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./diarios:/var/www/diarios
+    restart: always
