@@ -1,9 +1,15 @@
 # Função principal
-from fastapi import FastAPI
+from fastapi import Depends, FastAPI, APIRouter
 from utils.dodf import parse_data
+from utils.auth import get_user
+from utils.db import engine
+from utils.models import Base
 import json
 
+Base.metadata.create_all(bind=engine)
+
 app = FastAPI()
+#router = APIRouter()
 
 @app.get('/')
 def read_root():
@@ -15,7 +21,7 @@ def read_root():
     return resposta
 
 @app.get('/api/v1/cargos/{ano}/{mes}/{dia}')
-def get_cargos(ano : str, mes : str, dia: str):
+def get_cargos(ano : str, mes : str, dia: str, user : dict = Depends(get_user)):
     try:
         # Abre o arquivo do ano e mês correspondente
         conteudo = {}
