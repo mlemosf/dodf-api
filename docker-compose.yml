@@ -6,5 +6,5 @@ services:
       - "8000:8000"
     volumes:
       - ./diarios:/var/www/diarios
-      - ./dodf.db:/var/www/dodf.db
+      - ./db:/var/www/db
     restart: always
