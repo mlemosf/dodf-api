@@ -10,39 +10,24 @@ def read_file():
 
     return data
 
-def format_element(string, exp):
-    # Remove expression 'exp' from string 'string'
-    return string.replace(exp, '')
-
-# Busca string 
-def find_string(mylist, string):
-    # Loop list 'mylist' and set 'found' variable if list contains element 'string'
-    found = ''
-    for s in mylist:
-        if string in s:
-            found = s
-            break
-
-    return found
-
 # Formata o resultado em uma lista de objetos com o formato:
 # {"nome": "Nome", "matrícula": "12345", "simbolo": "CNE-05"}
-def monta_dicionario_exonerados(lista):
-    #print(lista)
-    # Remove stop words e vai montado o dicionário
-    # Find the element in a python list of strings which contains the string 'asdf'
-    nome = lista[0].replace('EXONERAR', '')
-    #cargo = format_element(find_string(lista, 'cargo'), ' ')
-    #matricula = lista[2].replace('matrícula ','')
-    matricula = format_element(find_string(lista, 'matrícula'), 'matrícula ')
-    simbolo = format_element(find_string(lista, 'Símbolo'), 'Símbolo ')
-
-    dicionario = {
-        'nome': nome,
-        'matricula': matricula,
-        'simbolo': simbolo
-    }
-    return dicionario
+#def monta_dicionario_exonerados(lista):
+#    #print(lista)
+#    # Remove stop words e vai montado o dicionário
+#    # Find the element in a python list of strings which contains the string 'asdf'
+#    nome = lista[0].replace('EXONERAR', '')
+#    #cargo = format_element(find_string(lista, 'cargo'), ' ')
+#    #matricula = lista[2].replace('matrícula ','')
+#    matricula = format_element(find_string(lista, 'matrícula'), 'matrícula ')
+#    simbolo = format_element(find_string(lista, 'Símbolo'), 'Símbolo ')
+#
+#    dicionario = {
+#        'nome': nome,
+#        'matricula': matricula,
+#        'simbolo': simbolo
+#    }
+#    return dicionario
         
 
 def extrai_texto(texto, termo):
@@ -91,6 +76,12 @@ def parse_data(data):
 
     return dicionario
             
-data = read_file()
-parsed = parse_data(data)
-print(json.dumps(parsed))
+def main(*args, **kwargs):
+    filename = kwargs.get('filename')
+    print('a')
+    data = read_file()
+    parsed = parse_data(data)
+    parsed_json = json.dumps(parsed)
+    return parsed_json
+
+print(main('./file.json'))
