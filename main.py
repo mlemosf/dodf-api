@@ -9,7 +9,8 @@ app = FastAPI()
 def read_root():
     resposta = {
         'nome': 'API não oficial de cargos do DODFe',
-        'autor': 'Matheus Fernandes <matheus@mail.matheuslemos.com>'
+        'autor': 'Matheus Fernandes <matheus@mail.matheuslemos.com>',
+        'docs': '/docs'
     }
     return resposta
 
@@ -33,6 +34,7 @@ def get_cargos(ano : int, mes : int, dia: int):
         }
         return resultado
     except Exception as e:
+        print(str(e))
         resultado = {
             'codigo' : 500,
             'mensagem': str(e)

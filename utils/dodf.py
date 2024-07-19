@@ -40,8 +40,6 @@ def extrai_texto(texto, termo):
             pessoa = str(p.get_text('p'))
             lista.append(pessoa)
 
-            #exonerados_list = exonerado.split(', ')
-            #ex_dict = monta_dicionario_exonerados(exonerados_list)
     return lista
             
 def parse_data(data):
@@ -71,7 +69,10 @@ def parse_data(data):
                         dicionario[secao][elemento][documento][parte]['exoneracoes'] = exonerados
                     if nomeados:
                         dicionario[secao][elemento][documento][parte]['nomeacoes'] = nomeados
-                    
+                        break
+                    else:
+                        del dicionario[secao][elemento]
+                        break
             
 
     return dicionario
