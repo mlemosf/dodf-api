@@ -2,10 +2,10 @@
 import json
 from bs4 import BeautifulSoup
 
-def read_file():
+def read_file(filename):
     # Read file .json on current folder and store on data dict
     data = {}
-    with open("file.json", "r") as file:
+    with open(filename, "r") as file:
         data = json.load(file)
 
     return data
@@ -79,9 +79,9 @@ def parse_data(data):
 def main(*args, **kwargs):
     filename = kwargs.get('filename')
     print('a')
-    data = read_file()
+    data = read_file(filename)
     parsed = parse_data(data)
     parsed_json = json.dumps(parsed)
     return parsed_json
 
-print(main('./file.json'))
+#print(main('./file.json'))
