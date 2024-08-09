@@ -1,5 +1,6 @@
 # Arquivo para acessar a API do dodf e parsear o resultado
 import json
+import re
 from bs4 import BeautifulSoup
 
 def read_file(filename):
@@ -12,23 +13,28 @@ def read_file(filename):
 
 # Formata o resultado em uma lista de objetos com o formato:
 # {"nome": "Nome", "matrícula": "12345", "simbolo": "CNE-05"}
-#def monta_dicionario_exonerados(lista):
-#    #print(lista)
-#    # Remove stop words e vai montado o dicionário
-#    # Find the element in a python list of strings which contains the string 'asdf'
-#    nome = lista[0].replace('EXONERAR', '')
-#    #cargo = format_element(find_string(lista, 'cargo'), ' ')
-#    #matricula = lista[2].replace('matrícula ','')
-#    matricula = format_element(find_string(lista, 'matrícula'), 'matrícula ')
-#    simbolo = format_element(find_string(lista, 'Símbolo'), 'Símbolo ')
-#
-#    dicionario = {
-#        'nome': nome,
-#        'matricula': matricula,
-#        'simbolo': simbolo
-#    }
-#    return dicionario
-        
+def extrai_elementos_exonerados(pessoa_lista):
+    # TODO: Codar o resto dos edge cases
+    padrao_nome = r'( do Cargo.*$)|(EXONERAR )'
+    padrao_simbolo = ' Símbolo '
+
+    print(pessoa_lista)
+    for i in pessoa_lista:
+        if 'do Cargo' in i:
+            nome = re.sub(padrao_nome, '', i)
+        if padrao_simbolo in i:
+            simbolo = re.sub(padrao_simbolo, '', i)
+
+    try:
+        dicionario = {
+            'nome': nome,
+            'simbolo': simbolo
+        }
+        return dicionario
+    except Exception as e:
+        print(e)
+
+       
 
 def extrai_texto(texto, termo):
     # Use BeautifulSoup to extract the <p> tag in a string
@@ -38,7 +44,12 @@ def extrai_texto(texto, termo):
     if pessoas:
         for p in pessoas:
             pessoa = str(p.get_text('p'))
-            lista.append(pessoa)
+
+            # Quebra a string em lista
+            pessoa_l = pessoa.split(',')
+            pessoa_dict = extrai_elementos_exonerados(pessoa_l)
+            print(pessoa_dict)
+            lista.append(pessoa_dict)
 
     return lista
             
